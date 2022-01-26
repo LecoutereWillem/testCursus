@@ -1,13 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn github website</title>
-</head>
-<body>
-    <p>Een klein beetje tekst</p>
-    <p>en een extra paragraaf</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="master.css" />
+    <title>Continuous Integration Basic</title>
+  </head>
+  <body>
+    <h1>Continuous Integration Basic</h1>
+
+    <ol>
+      <li><a href="#basics"> download and config </a></li>
+      <li><a href="#remote"> remote repo's </a></li>
+      <li><a href="#gitignore"> .gitignore </a></li>
+      <li><a href="#branches"> branches </a></li>
+      <li><a href="#conflicts"> conflicten, pull requests </a></li>
+      <li><a href="#github"> GitHub features </a></li>
+      <li><a href="#history"> geschiedenis </a></li>
+
+    </ol>
+    <h2 id="git">GIT</h2>
+    <h3>Command Lines</h3>
+
+    <!--LABO 1-->
+
+    <h3 id="basics">GIT CONFIGUREREN NA DOWNLOAD EN INSTALL</h3>
+    <p>
+      <code
+        >git config --global user.name "Jouw GitHub Gebruikersnaam" <br />
+        git config --global user.email
+        "voornaam.familienaam@student.howest.be"</code
+      ><br />
+
+      of gewoon weergeven via <br />
+      <code>git config --global user.name</code>
+      <i>//geeft gebruikersnaam terug</i><br />
+      <code>git config --global user.email</code>
+      <i>//geeft emailadres terug</i>
+      <br />
+      Folder omzetten in Git Repo: <br />
+      <code>git init</code> <br />
+      Local koppelen aan remote Repo: <br />
+      <code>git remote add origin gitURl</code> <br />
+      Binnentrekken inhoud van remote folder in local repo. <br />
+      <code>git pull origin master</code><br />
+      Nieuw bestand aanmaken: <br />
+      <code>touch bestandsnaam</code><i>//geen git code</i><br />
+      Bestand toevoegen aan versiebeheer van git: <br />
+      <code>git add .</code><i>// voegt alle gewijzigde bestanden in repo toe</i
+      ><br />
+      <code>git add bestandsnaam</code><i> //voegt enkel ene bestand toe.</i
+      ><br />
+      Onzichtbare bestanden bekijken: <br />
+      <code>ls -a</code> <br />
+      Gestagede bestanden committen: <br />
+      <code>git commit -m "Geef beschrijving in English max 50 char."</code
+      ><br />
+      Local repo syncen met Remote: <br />
+      <code>git push</code><br />
+      Local situatie bekijken: <br />
+      <code>git status</code><br />
+      Commit geschiedenis bekijken: 3 manieren <br />
+      <code>git log</code><i> //extreem uitgebreid</i><br />
+      <code>git log --oneline</code><i> //compacte commitlijst met id</i><br />
+      <code>git shortlog</code><i> //extreem compact zonder id's</i><br />
+    </p>
+<p class="go-back"><a href="#top">To Menu</a></p>
+    <!--LABO 2-->
+
+    <h3 id="remote">REMOTE REPOSITORIES</h3>
+
+    <p>
+      Clonen van een remote repository. <br />
+      <code>git clone gitURL mapnaam</code><br />
+      Kijken welke remote gekoppeld is aan git. <br />
+      <code>git remote</code><br />
+      Commit geschiedenis syncen met remote repo. <br />
+      <code>git pull</code>
+    </p>
+    <p class="go-back"><a href="#top">To Menu</a></p>
+
+    <h3 id="gitignore">.GITIGNORE</h3>
+    <p>
+      lokaal .gitignore aanmaken <br />
+      gitignore bestande worden niet mee gestaged. <br />
+      <code>touch .gitignore</code><br />
+      toevoegen commentaar in .gitignore <br />
+        <pre>
+          #temporary files are excluded
+          *.tmp
+          #temporary folder is excluded
+          temp/
+          #All phases except phase1 are ignored
+          phase*/
+          !phase1/
+          </pre
+        >
+    </p>
+    <p class="go-back"><a href="#top">To Menu</a></p>
+
+    <!--LABO 3-->
+
+    <h3 id="branches">BRANCHES</h3>
+    <p>
+      toon alle branches in git: <br />
+      <code>git branch</code><br />
+      nieuwe dev-branch aanmaken: <br />
+      <code>git branch dev</code><br />
+      kan ook met checkout in 1 beweging: <br />
+      <code>git checkout -b dev</code
+      ><i> //automatisch overschakelen naar nieuwe dev</i><br />
+      gewoon overschakelen via checkout: <br />
+      <code>git checkout branchnaam</code><br />
+      nieuwe branch syncen met remote: <br />
+      <code>git push -u origin nieuweBranch</code><br />
+      Samenvoegen van branches: <br />
+      <code>git merge branchnaam</code
+      ><i> //voegt aangegeven branch toe aan huidige branch</i><br />
+      Er kan ook gemerged worden van feature-branch into the dev-branche: <br />
+      <code>git merge dev</code><i>//terwijl actieve branch = feature-branch</i>
+
+      verwijderen van een branch: <br />
+      <code>git branch -d branchnaam</code><i> //lokaal verwijderen</i><br />
+      <code>git push origin --delete branchnaam</code
+      ><i> //remote branch verwijderen</i><br />
+    </p>
+    <p class="go-back"><a href="#top">To Menu</a></p>
+
+    <!--LABO 4-->
+ <h3 id="conflicten">CONFLICTEN</h3>
+ <p>
+Indien geen conflicten en branch is 1 x afgetakt en er is niets veranderd aan hoofdtak: <br>
+<b>FAST FORWARD</b><br>
+Indien complexere branch-structuur, de ene heeft commit die de andere niet heeft <br>
+<b>3 WAY MERGE</b><br>
+methode: <br>
+1. Eerst dev mergen in feature1 branch <br>m
+2. files aanpassen <br>
+3. merge dev in feature2 branch <br>
+4. files aanpassen <br>
+5. merge feature1 into dev <br>
+6. merge feature2 into dev <br>
+<br>
+de optie --no-ff <br>
+<code>git merge --no-ff featurebranch</code><br>
+Er wordt nu wel een commit boodschap meegegeven, bij FF niet. <br>
+<br>
+Indien wel <b>conflict</b>:
+ofwel lokaal oplossen, ofwel rechtstreeks op github. <br>
+<ol>
+  <li>
+    <b>lokaal oplossen</b><br>
+    vanuit de feature-branch, dev mergen= <code>git merge dev</code> <br>
+    conflict: accept current of incoming change = save = > <br>
+    conflict opgelost : add => commit => push
+  </li>
+  <li><b>via github online</b><br>
+    <code>Resolve Conflict bij Pull-Request</code>
+    dus ook hier : Dev binnentrekken op feature branch, daar conflict oplossen, en commit merge. <br>
+    Vanuit Github lokaal binnen trekken? <br>
+    <code>git pull</code><br></li>
+</ol>
+ </p>
+ <p class="go-back"><a href="#top">To Menu</a></p>
+
+     <!--LABO 5-->
+<h3 id="github">Github FEATURES</h3>
+<p>
+  waarom ?
+  <ol>
+    <li>Backup</li>
+    <li>Versiebeheer</li>
+    <li>samenwerken via branches</li>
+    <li>extra services, unit testing, projecten opvolgen adhv issues ed...</li>
+  </ol>
+<p>Te Kennen</p>
+<ul>
+  <li>Project aanmaken [Project tab]</li>
+  <li>In progress automatiseren.. [manage]</li>
+  <li>Labels toevoegen</li>
+  <li>Milestones ingeven</li>
+  <li>DueDate</li>
+  <li>Issues aanmaken</li>
+  <li>Activeren github pages....moet publieke repository zijn</li>
+
+</ul>
+<ul>
+  <li>Fork : repo kopiëren naar eigen github => meewerken</li>
+<li>Raw : bestand zonder opmaak</li>
+<li>Blame: wie hoort bij welke commit</li>
+<li>History: geschiedenis van eenbestand bekijken</li>
+<li>Issue: elke issue krijgt een nummer</li>
+<li>kun je via commits iets mee doen: <ol><li>Closes</li>
+<li>Resolves</li>
+<li>Fixes</li><li><code>git commit -m "Update bestand Closes #1"</code></li></ol></li>
+<li>Assign= mensen toekennen aan een issue</li>
+<li>Label: labels toekennen aan issues</li>
+<li>Milestone: groeperen van issues</li>
+<li>Kanbanproject: opvolging van project</li>
+<li>Wiki : info over het project: <ol><li>link maken extern</li>
+<li>website tussen bekjes plaatsen</code></li>
+<li>[website](http://www.google.com)</li>
+<li>interne linken binnen dubbele vierkante haken</li>
+<li>[[naardezepagina]]</li></ol></li>
+</ul>
+</p>
+<p class="go-back"><a href="#top">To Menu</a></p>
+
+    <!--LABO 6-->
+
+    <h3 id="history">GIT FIXES : terugkeren in geschiedenis op 2 manieren:</h3>
+    <p>
+      working tree: default branch. <br />
+      clean working tree: situatie root map == commit, geen losse bestanden,
+      alles gecommit. <br />
+      check: <code>git status</code><br />
+      untracked files : zijn nog niet geadd om meegenomen te worden in commit.
+      <br />
+      niet gecommitte wijzigen ongedaan maken: <br />
+      <code>git reset</code> <i>//unstage alle gestagede wijzigen</i><br />
+      <code>git checkout .</code> <i>//voert checkout uit naar vorige commit</i
+      ><br />
+      gewijzigde bestanden worden hersteld, maar toegevoegde bestanden blijven
+      wel staan. Wil je deze weg? <br />
+      <code>git clean --force</code>
+      <i>//een clean working tree is het resultaat</i>
+    </p>
+
+    <p>
+      1. Wissen van commits via reset (specifiek per branch).<i
+        >//gezien als rollback</i
+      >
+      Kan voor veel problemen zorgen indien er ook remote wordt gewerkt en er
+      gepushed wordt.<br />
+      <code>git reset commitnummerKort</code>
+      <i>//project wordt hersteld naar bepaaLde commit</i><br />
+      Indien problemen met remote: <br />
+      <code>git push --force</code>
+      <i>// !!!!!! oppassen: commits verdwijnen op remote.</i> 2. Nieuwe commit
+      die de situatie aanpast aan meegeven oude commit via <i>revert</i>. De
+      commit history blijft behouden, daarom belangrijk om veel kleine commits
+      te doen, maakt foutopsporing makkelijk.<br />
+      <code>git revert commitnummer</code
+      ><i>//een nieuwe commit is aangemaakt</i>
+    </p>
+    <p class="go-back"><a href="#top">To Menu</a></p>
+
+
+    <h3>GEAUTOMATISEERDE WORKFLOWS</h3>
+    <p>
+      3 pijlers continuous integration CI: <br />
+      1. gemeenschappelijk branch <br />
+      2. unit test <br />
+      3. compileren en automatisch testen van code. <br />
+      <br />
+      workflow = configureerbaar proces dat automatisch getriggerd wordt. Dit
+      proces bestaat uit <b>jobs</b>.<br />
+      in GitHub: <code>actions => set new workflow</code> <br />
+      er wordt een YAML file aangemaakt (whitespace syntax) die de trigger
+      (wanneer en waar: push/pull, branch) <br />
+      waarbinnen je dan de jobomschrijving meegeeft pe. : build:
+    </p>
+    <h3>BRANCH PROTECTION</h3>
+    <p>
+      Iedereen wordt verplicht met een pull-request te werken zodat alles
+      gereviewed wordt.
+      <code>setting => branches => add new rule</code>
+    </p>
+    <p class="go-back"><a href="#top">To Menu</a></p>
+
+  </body>
 </html>
